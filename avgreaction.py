@@ -1,7 +1,7 @@
 #%%
 import csv
 
-with open('results.csv', 'r') as file:
+with open('results_test78.csv', 'r') as file:
     reader = csv.reader(file)
     data = list(reader)
 
