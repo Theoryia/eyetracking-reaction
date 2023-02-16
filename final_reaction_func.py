@@ -21,7 +21,7 @@ def get_space_bar_press_time():
             return time.time()
 
 def run_test(coordinates, box_size, start_time):
-    """Runs a single test and returnbbs the reaction time to reach the box, time to press the b key, and total time"""
+    """Runs a single test and returnbbs the reaction time to reach the box, time to press the 'b' key, and total time"""
     mouse_reach_time = get_mouse_reach_time(coordinates, box_size)
     space_bar_press_time = get_space_bar_press_time()
     reaction_time_to_reach = mouse_reach_time - start_time
@@ -30,7 +30,8 @@ def run_test(coordinates, box_size, start_time):
     return reaction_time_to_reach, time_to_press_space, total_time
 
 def main():
-    candidate_no = input("Input the users candidate number: ")
+    print("Thank you for partaking in this test, if you have not read the information sheet \nand filled out the consent form and submitted it, please exit this test immediately. \n\n If you have filled out the form, please press Enter")
+    candidate_no = input("Input the users candidate number, followed by the enter button: ")
     csvfile = f"results_test{candidate_no}.csv"
     # Define the size of the box in pixels
     box_size = 200
@@ -47,9 +48,10 @@ def main():
     results = []
     for i, coord in enumerate(coordinates):
         # Record the starting time for the current test
+        print("-------------")
         print("Test Starting")
         print("-------------")
-        print("Please ensure the test is open")
+        print("Tab into the powerpoint and right click twice on it.")
         time.sleep(5)
         print("Ready")
         time.sleep(random.uniform(4, 6))
@@ -79,7 +81,7 @@ def main():
         writer = csv.DictWriter(file, fieldnames=fieldnames)
         writer.writeheader()
         for i, result in enumerate(results):
-            writer.writerow({'Test Number': i + 1, 'Reaction Time to Reach Box': format(result[0], '.4f'), 'Time to Press Space Bar': format(result[1], '.4f'), 'Total Time': format(result[2], '.2f')})
+            writer.writerow({'Test Number': i + 1, 'Reaction Time to Reach Box': format(result[0], '.4f'), 'Time to Press B key': format(result[1], '.4f'), 'Total Time': format(result[2], '.2f')})
 
     # for i, result in enumerate(results):
     #     print("Test {} results:".format(i + 1))
