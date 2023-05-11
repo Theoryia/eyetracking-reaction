@@ -33,21 +33,16 @@ def main():
     print("Thank you for partaking in this test, if you have not read the information sheet \nand filled out the consent form and submitted it, please exit this test immediately. \n\n If you have filled out the form, please press Enter")
     candidate_no = input("Input the users candidate number, followed by the enter button: ")
     csvfile = f"results_test{candidate_no}.csv"
-    # Define the size of the box in pixels
     box_size = 200
     
-    # Read the coordinate data from the CSV file
     with open("coordinates.csv", "r") as file:
         reader = csv.reader(file)
         coordinates = [list(map(int, coord)) for coord in reader]
 
-    # Display the prompt
     input()
 
-    # Run the tests
     results = []
     for i, coord in enumerate(coordinates):
-        # Record the starting time for the current test
         print("-------------")
         print("Test Starting")
         print("-------------")
@@ -62,32 +57,22 @@ def main():
         reaction_time_to_reach, time_to_press_space, total_time = run_test([coord], box_size, start_time)
         results.append([reaction_time_to_reach, time_to_press_space, total_time])
 
-        # Prompt the user to continue to the next test
         if i < len(coordinates) - 1:
             print("Press 'Enter' to continue to the next test. Please return to the test immediately")
             input()
             time.sleep(2)
             pyautogui.press('right')
             
-
-    # Show results
     print("\nResults:")
     for i, result in enumerate(results):
         print("Test {} - Reaction time to reach box: {:.4f} seconds - Time to press space bar: {:.4f} seconds - Total time: {:.2f} seconds".format(i + 1, result[0], result[1], result[2]))
         input()
-    # Write the results to a CSV file
+        
     with open(csvfile, 'a', newline='') as file:
         fieldnames = ['Test Number', 'Reaction Time to Reach Box', 'Time to Press Space Bar', 'Total Time']
         writer = csv.DictWriter(file, fieldnames=fieldnames)
         writer.writeheader()
         for i, result in enumerate(results):
             writer.writerow({'Test Number': i + 1, 'Reaction Time to Reach Box': format(result[0], '.4f'), 'Time to Press B key': format(result[1], '.4f'), 'Total Time': format(result[2], '.2f')})
-
-    # for i, result in enumerate(results):
-    #     print("Test {} results:".format(i + 1))
-    #     print("Reaction time to reach box: {:.4f} seconds".format(result[0]))
-    #     print("Time to press space bar: {:.4f} seconds".format(result[1]))
-    #     print("Total time: {:.2f} seconds".format(result[2]))
-        
-        
+            
 main()
